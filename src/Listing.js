@@ -9,6 +9,7 @@ import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {addTodo,editTodo} from './Redux/TodoSlice';
 import { useRoute } from '@react-navigation/native';
+import { addProduct } from './Redux/ProductSlice';
 
 const Listing = ({navigation}) => {
   const route = useRoute()
@@ -49,7 +50,7 @@ const Listing = ({navigation}) => {
         style={styles.buttonStyle}
         onPress={() => {
           if(route.params.type=='add'){
-            dispatch(addTodo({title: title, desc: desc}));
+            dispatch(addProduct({title: title, desc: desc}));
           }
           //dispatch(action(payload));
           else{
