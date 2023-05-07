@@ -1,9 +1,21 @@
-import {configureStore} from '@reduxjs/toolkit';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import TodoReducer from './TodoSlice';
 import ProductReducer from './ProductSlice';
+import { persistReducer } from 'redux-persist'
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+const persistConfig = {
+  key: 'root',
+  storage : AsyncStorage
+}
+
+const rootReducer = combineReducers({
+  todo: TodoReducer,
+  product: ProductReducer,
+})
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
 export const mystore = configureStore({
-  reducer: {
-    todo: TodoReducer,
-    product: ProductReducer,
-  },
+  reducer: persistedReducer
 });

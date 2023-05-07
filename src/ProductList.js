@@ -1,5 +1,5 @@
 import {View, Text, Image} from 'react-native';
-import React,{useState} from 'react';
+import React, {useState} from 'react';
 import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
@@ -11,7 +11,6 @@ const ProductList = ({navigation}) => {
   const [bodySMS, setBodySMS] = useState(
     'Please follow https://aboutreact.com',
   );
-
 
   const products = useSelector(state => state.product.data);
   const dispatch = useDispatch();
@@ -29,7 +28,7 @@ const ProductList = ({navigation}) => {
         body: bodySMS,
         // Recipients Number
         recipients: [mobileNumber],
-        // An array of types 
+        // An array of types
         // "completed" response when using android
         successTypes: ['sent', 'queued'],
       },
@@ -39,8 +38,7 @@ const ProductList = ({navigation}) => {
         } else if (cancelled) {
           console.log('SMS Sent Cancelled');
         } else if (error) {
-
-          console.log('Some error occured',error);
+          console.log('Some error occured', error);
         }
       },
     );
@@ -63,20 +61,6 @@ const ProductList = ({navigation}) => {
 
   return (
     <View style={{flex: 1, marginTop: 40}}>
-      {/* <View
-        style={{
-          height: 40,
-          width: 40,
-          borderRadius: 20,
-          position: 'absolute',
-          bottom: 10,
-          right: 10,
-          backgroundColor: '#c51dec',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Text onPress={() => navigation.navigate('Listing')}>Add</Text>
-      </View> */}
       <View
         style={{
           alignSelf: 'center',
@@ -89,35 +73,17 @@ const ProductList = ({navigation}) => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-          
         <TouchableOpacity
-         // onPress={() => navigation.navigate('AddProduct', {type: 'add'})}>
-             onPress={() =>triggerCall()}>
-       
+          onPress={() => navigation.navigate('AddProduct', {type: 'add'})}>
           <Image
             source={require('./images/add.png')}
             style={{
               width: 60,
               height: 60,
-              //   alignSelf: 'center',
-              //   position: 'absolute',
-              //         right: 30,
-
-              // position: 'absolute',
-              // bottom: 10,
-              // right: 10,
-
-              // justifyContent: 'center',
-              // alignItems: 'center',
             }}
           />
         </TouchableOpacity>
       </View>
-      {/* <TouchableOpacity 
-      
-      onPress={() => navigation.navigate('Listing',{type:'add'})}>
-        <Text>Add</Text>
-      </TouchableOpacity> */}
       <FlatList
         data={products}
         renderItem={({item, index}) => {
@@ -126,12 +92,10 @@ const ProductList = ({navigation}) => {
               style={{
                 width: '90%',
                 flexDirection: 'row',
-                // height: 50,
                 backgroundColor: '#fff',
                 alignSelf: 'center',
                 borderRadius: 5,
                 alignContent: 'center',
-                //justifyContent: 'center',
                 paddingVertical: 20,
                 margin: 5,
                 paddingHorizontal: 10,
@@ -141,16 +105,18 @@ const ProductList = ({navigation}) => {
                   height: 40,
                   width: 40,
                   borderRadius: 20,
-                  // position: 'absolute',
-                  // bottom: 10,
-
                   backgroundColor:
                     '#' + Math.floor(Math.random() * 16777215).toString(16),
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
-                //onPress={() => navigation.navigate('AddProduct', {type: 'edit',data:item,index:index})}
-                >
+                onPress={() =>
+                  navigation.navigate('AddProduct', {
+                    type: 'edit',
+                    data: item,
+                    index: index,
+                  })
+                }>
                 <Text
                   style={{
                     alignSelf: 'center',
@@ -158,7 +124,7 @@ const ProductList = ({navigation}) => {
                     fontSize: 20,
                     fontWeight: 'bold',
                   }}>
-                  {item.name.charAt(0)}
+                  {item && item.name && item.name.charAt(0)}
                 </Text>
               </TouchableOpacity>
               <View style={{marginLeft: 10}}>
@@ -166,22 +132,7 @@ const ProductList = ({navigation}) => {
                 <Text style={{fontSize: 16}}>{item.number}</Text>
                 <Text style={{fontSize: 16}}>{item.email}</Text>
               </View>
-              {/* <Text
-                style={{
-                  position: 'absolute',
-                  right: 10,
-                  top: 10,
-                  color: 'red',
-                  alignSelf: 'center',
-                }}
-                onPress={() => {
-                  //dispatch(action(payload));
-                  dispatch(deleteTodo(index));
-                }}>
-                Delete
-              </Text> */}
-              <Image
-                source={require('./images/call.png')}
+              <View
                 style={{
                   width: 24,
                   height: 24,
@@ -189,49 +140,38 @@ const ProductList = ({navigation}) => {
                   // marginTop: 30,
                   position: 'absolute',
                   right: 30,
-                  zIndex:1
-                }}
-              />
-             
-               <TouchableOpacity
-          onPress={() => triggerCall()}>
-              <Image
-                source={require('./images/msg.png')}
+                  // top: 10,
+                }}>
+                <TouchableOpacity onPress={() => triggerCall()}>
+                  <Image
+                    source={require('./images/call.png')}
+                    style={{
+                      width: 24,
+                      height: 24,
+                      alignSelf: 'center',
+                    }}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View
                 style={{
                   width: 24,
                   height: 24,
                   alignSelf: 'center',
-                  // marginTop: 30,
-                 // position: 'absolute',
-                  right: 80,
-                  // top: 10,
-                }}
-              />
-              </TouchableOpacity>
-          
-
-
-              <TouchableOpacity
-          onPress={() => triggerCall()}>
-             <Text>Call</Text>
-              </TouchableOpacity>
-              {/* <Text
-                style={{
                   position: 'absolute',
-                  right: 10,
-                  top: 30,
-                  color: 'red',
-                  alignSelf: 'center',
-                }}
-                onPress={() =>
-                  navigation.navigate('Listing', {
-                    type: 'edit',
-                    data: item,
-                    index,
-                  })
-                }>
-                Edit
-              </Text> */}
+                  right: 80,
+                }}>
+                <TouchableOpacity onPress={() => initiateSMS()}>
+                  <Image
+                    source={require('./images/msg.png')}
+                    style={{
+                      width: 24,
+                      height: 24,
+                      alignSelf: 'center',
+                    }}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
           );
         }}></FlatList>

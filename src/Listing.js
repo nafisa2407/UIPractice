@@ -13,7 +13,6 @@ import { addProduct } from './Redux/ProductSlice';
 
 const Listing = ({navigation}) => {
   const route = useRoute()
-  console.log('route',route)
  
    const [title, setTitle] = useState(route.params.type=='edit'?route.params.data.title:'');
  const [desc, setDesc] = useState(route.params.type=='edit'?route.params.data.desc:'');
@@ -50,7 +49,7 @@ const Listing = ({navigation}) => {
         style={styles.buttonStyle}
         onPress={() => {
           if(route.params.type=='add'){
-            dispatch(addProduct({title: title, desc: desc}));
+            dispatch(addTodo({title: title, desc: desc}));
           }
           //dispatch(action(payload));
           else{

@@ -17,23 +17,28 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import {createStackNavigator} from '@react-navigation/stack';
 import { mystore } from './src/Redux/store';
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistStore } from 'redux-persist'
+let persistor = persistStore(mystore)
+
 
 const Stack = createStackNavigator();
 const App = () => {
   return (
     <Provider store={mystore}>
+      <PersistGate persistor={persistor}>
       <NavigationContainer>
         <Stack.Navigator>
+       
         <Stack.Screen name="ProductList" component={ProductList} options={{ headerShown: false }} />
         <Stack.Screen name="ToolkitRedux" component={ToolkitRedux} />
         <Stack.Screen name="Listing" component={Listing} options={{ headerShown: false }}/>
           <Stack.Screen name="LocalDataBase" component={LocalDataBase} />
           <Stack.Screen name="AddProduct" component={AddProduct} options={{ headerShown: false }} />
-
           <Stack.Screen name="TodoList" component={TodoList} />
-          {/*<Stack.Screen name="Settings" component={Settings} /> */}
         </Stack.Navigator>
       </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 };

@@ -8,7 +8,7 @@ const ToolkitRedux = ({navigation}) => {
   const todos = useSelector(state => state.todo.data);
   const dispatch = useDispatch();
 
-  console.log(todos);
+  console.log("todos====>",todos);
   return (
     <View style={{flex:1}}>
       {/* <View
@@ -33,7 +33,6 @@ const ToolkitRedux = ({navigation}) => {
       <FlatList
         data={todos}
         renderItem={({item,index}) => {
-          console.log('item', item.title);
 
           return(
           <View
