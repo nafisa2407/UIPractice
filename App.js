@@ -12,6 +12,8 @@ import Listing from './src/Listing';
 import AddProduct from './src/AddProduct';
 
 import ProductList from './src/ProductList';
+import ItemList from './src/ItemList';
+
 import LocalDataBase from './src/LocalDataBase';
 import {NavigationContainer} from '@react-navigation/native';
 
@@ -29,7 +31,7 @@ const App = () => {
       <PersistGate persistor={persistor}>
       <NavigationContainer>
         <Stack.Navigator>
-       
+        <Stack.Screen name="ItemList" component={ItemList} options={{ headerShown: false }} />
         <Stack.Screen name="ProductList" component={ProductList} options={{ headerShown: false }} />
         <Stack.Screen name="ToolkitRedux" component={ToolkitRedux} />
         <Stack.Screen name="Listing" component={Listing} options={{ headerShown: false }}/>

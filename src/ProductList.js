@@ -4,49 +4,43 @@ import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import SendSMS from 'react-native-sms';
-import {deleteProduct} from './Redux/ProductSlice';
 import call from 'react-native-phone-call';
 const ProductList = ({navigation}) => {
-  const [mobileNumber, setMobileNumber] = useState('9594945468');
+  const [mobileNumber, setMobileNumber] = useState('9820777651');
   const [bodySMS, setBodySMS] = useState(
     'Please follow https://aboutreact.com',
+  );
+  const [whatsAppMsg, setWhatsAppMsg] = useState(
+    'Hi, I did like to say have a good Day!',
   );
 
   const products = useSelector(state => state.product.data);
   const dispatch = useDispatch();
 
-  const initiateSMS = () => {
+  const initiateWhatsApp = () => {
     // Check for perfect 10 digit length
-    if (mobileNumber.length != 11) {
-      alert('Please insert correct contact number');
+    if (mobileNumber.length != 10) {
+      alert('Please insert correct WhatsApp number');
       return;
     }
-
-    SendSMS.send(
-      {
-        // Message body
-        body: bodySMS,
-        // Recipients Number
-        recipients: [mobileNumber],
-        // An array of types
-        // "completed" response when using android
-        successTypes: ['sent', 'queued'],
-      },
-      (completed, cancelled, error) => {
-        if (completed) {
-          console.log('SMS Sent Completed');
-        } else if (cancelled) {
-          console.log('SMS Sent Cancelled');
-        } else if (error) {
-          console.log('Some error occured', error);
-        }
-      },
-    );
+    // Using 91 for India
+    // You can change 91 with your country code
+    let url =
+      'whatsapp://send?text=' + 
+       whatsAppMsg +
+      '&phone=91' + mobileNumber;
+    Linking.openURL(url)
+      .then((data) => {
+        console.log('WhatsApp Opened');
+      })
+      .catch(() => {
+        alert('Make sure Whatsapp installed on your device');
+      });
   };
 
   const triggerCall = () => {
     // Check for perfect 10 digit length
-    if (mobileNumber.length != 11) {
+    if (mobileNumber.length != 10) {
       alert('Please insert correct contact number');
       return;
     }
@@ -161,7 +155,7 @@ const ProductList = ({navigation}) => {
                   position: 'absolute',
                   right: 80,
                 }}>
-                <TouchableOpacity onPress={() => initiateSMS()}>
+                <TouchableOpacity onPress={() => initiateWhatsApp()}>
                   <Image
                     source={require('./images/msg.png')}
                     style={{
